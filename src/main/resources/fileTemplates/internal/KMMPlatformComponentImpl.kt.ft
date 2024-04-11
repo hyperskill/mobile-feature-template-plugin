@@ -1,0 +1,22 @@
+package ${PACKAGE_NAME}
+
+import org.hyperskill.app.core.flowredux.presentation.wrapWithFlowView
+import org.hyperskill.app.core.injection.ReduxViewModelFactory
+import ${ANDROID_MAIN_PRESENTATION_PACKAGE_NAME}.${SHORT_FEATURE_NAME}ViewModel
+#set($camel_case_feature = $SHORT_FEATURE_NAME.substring(0,1).toLowerCase() + $SHORT_FEATURE_NAME.substring(1))
+#set($component_name = $camel_case_feature + "Component")
+
+class Platform${SHORT_FEATURE_NAME}Impl(
+    private val ${component_name}: ${SHORT_FEATURE_NAME}Component
+) : Platform${SHORT_FEATURE_NAME}Component {
+    override val reduxViewModelFactory: ReduxViewModelFactory
+        get() = ReduxViewModelFactory(
+            mapOf(
+                ${SHORT_FEATURE_NAME}ViewModel::class.java to {
+                    ${SHORT_FEATURE_NAME}ViewModel(
+                        ${component_name}.${camel_case_feature}Feature.wrapWithFlowView()
+                    )
+                }
+            )
+        )
+}

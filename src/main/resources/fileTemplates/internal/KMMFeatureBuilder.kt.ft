@@ -1,0 +1,61 @@
+package ${PACKAGE_NAME}
+
+import co.touchlab.kermit.Logger
+import org.hyperskill.app.analytic.domain.interactor.AnalyticInteractor
+import org.hyperskill.app.core.domain.BuildVariant
+import org.hyperskill.app.core.presentation.ActionDispatcherOptions
+#if (${USE_VIEW_STATE})
+import org.hyperskill.app.core.presentation.transformState
+#end
+import org.hyperskill.app.logging.presentation.wrapWithLogger
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.Action
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.Message
+#if(${USE_VIEW_STATE})
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.ViewState
+#else
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.State
+#end
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${SHORT_FEATURE_NAME}Reducer
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${SHORT_FEATURE_NAME}ActionDispatcher
+#if (${USE_VIEW_STATE})
+import $COMMON_MAIN_VIEW_PACKAGE_NAME.${SHORT_FEATURE_NAME}ViewStateMapper
+#end
+import ru.nobird.app.presentation.redux.dispatcher.wrapWithActionDispatcher
+import ru.nobird.app.presentation.redux.feature.Feature
+import ru.nobird.app.presentation.redux.feature.ReduxFeature
+#set($camel_case_feature = $SHORT_FEATURE_NAME.substring(0,1).toLowerCase() + $SHORT_FEATURE_NAME.substring(1))
+
+internal object ${FULL_FEATURE_NAME}Builder {
+    private const val LOG_TAG = "${FULL_FEATURE_NAME}"
+
+    fun build(
+        analyticInteractor: AnalyticInteractor,
+        logger: Logger,
+        buildVariant: BuildVariant
+    ): Feature<${STATE_TYPE}, Message, Action> {
+        val ${camel_case_feature}Reducer =
+            ${SHORT_FEATURE_NAME}Reducer()
+                .wrapWithLogger(buildVariant, logger, LOG_TAG)
+
+        val ${camel_case_feature}ActionDispatcher = ${SHORT_FEATURE_NAME}ActionDispatcher(
+            ActionDispatcherOptions(),
+            analyticInteractor
+        )
+
+        #if (${USE_VIEW_STATE})
+        val viewStateMapper = ${SHORT_FEATURE_NAME}ViewStateMapper()
+        #end
+
+        return ReduxFeature(
+            initialState = ${FULL_FEATURE_NAME}.initialState(),
+            reducer = ${camel_case_feature}Reducer
+        )
+        #if (${USE_VIEW_STATE})
+            .wrapWithActionDispatcher(${camel_case_feature}ActionDispatcher)
+            .transformState(viewStateMapper::map)
+        #else
+        .wrapWithActionDispatcher(${camel_case_feature}ActionDispatcher)
+        #end
+    }
+}

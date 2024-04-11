@@ -1,0 +1,10 @@
+package ${PACKAGE_NAME}
+
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.State
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.ViewState
+
+internal class ${SHORT_FEATURE_NAME}ViewStateMapper {
+
+    fun map(state: State): ViewState =
+        ViewState()
+}

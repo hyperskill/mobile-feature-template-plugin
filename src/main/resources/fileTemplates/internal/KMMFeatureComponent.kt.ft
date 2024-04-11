@@ -1,0 +1,15 @@
+package ${PACKAGE_NAME}
+
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.Action
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.Message
+#if(${USE_VIEW_STATE})
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.ViewState
+#else
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.State
+#end
+import ru.nobird.app.presentation.redux.feature.Feature
+#set($camel_case_feature = $SHORT_FEATURE_NAME.substring(0,1).toLowerCase() + $SHORT_FEATURE_NAME.substring(1))
+
+interface ${SHORT_FEATURE_NAME}Component {
+    val ${camel_case_feature}: Feature<${STATE_TYPE}, Message, Action>
+}

@@ -1,0 +1,11 @@
+package ${PACKAGE_NAME}
+
+import ru.nobird.android.view.redux.viewmodel.ReduxViewModel
+import ru.nobird.app.presentation.redux.container.ReduxViewContainer
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.Action.ViewAction
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}Feature.Message
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}Feature.State
+
+class ${SHORT_FEATURE_NAME}ViewModel(
+    reduxViewContainer: ReduxViewContainer<${STATE_TYPE}, Message, ViewAction>
+) : ReduxViewModel<${STATE_TYPE}, Message, ViewAction>(reduxViewContainer)

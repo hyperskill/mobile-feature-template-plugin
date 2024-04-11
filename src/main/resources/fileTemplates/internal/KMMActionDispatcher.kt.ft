@@ -1,0 +1,24 @@
+package ${PACKAGE_NAME}
+
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.Action
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.InternalAction
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.Message
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.State
+import org.hyperskill.app.analytic.domain.interactor.AnalyticInteractor
+import org.hyperskill.app.core.presentation.ActionDispatcherOptions
+import ru.nobird.app.presentation.redux.dispatcher.CoroutineActionDispatcher
+
+internal class ${SHORT_FEATURE_NAME}ActionDispatcher(
+    config: ActionDispatcherOptions,
+    private val analyticInteractor: AnalyticInteractor
+) : CoroutineActionDispatcher<Action, Message>(config.createConfig()) {
+    override suspend fun doSuspendableAction(action: Action) {
+        when (action) {
+            is InternalAction.LogAnalyticEvent ->
+                analyticInteractor.logEvent(action.event)
+            else -> {
+                // no op
+            }
+        }
+    }
+}

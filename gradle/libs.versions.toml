@@ -1,0 +1,13 @@
+[versions]
+kotlin = '1.9.0'
+gradleIntelliJPlugin = '1.17.2'
+kotlin_reflect = "1.6.21"
+kotlin_coroutines_swing = "1.6.4"
+
+[libraries]
+kotlin_reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin_reflect" }
+kotlin_coroutines_swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlin_coroutines_swing" }
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+intellijPlugin = { id = "org.jetbrains.intellij", version.ref = "gradleIntelliJPlugin" }

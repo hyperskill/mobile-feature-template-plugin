@@ -1,0 +1,11 @@
+package ${PACKAGE_NAME}
+
+import org.hyperskill.app.core.flowredux.presentation.FlowView
+import org.hyperskill.app.core.flowredux.presentation.ReduxFlowViewModel
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}.Action.ViewAction
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}Feature.Message
+import $COMMON_MAIN_PRESENTATION_PACKAGE_NAME.${FULL_FEATURE_NAME}Feature.State
+
+class ${SHORT_FEATURE_NAME}ViewModel(
+    viewContainer: FlowView<${STATE_TYPE}, Message, ViewAction>
+) : ReduxFlowViewModel<${STATE_TYPE}, Message, ViewAction>(viewContainer)

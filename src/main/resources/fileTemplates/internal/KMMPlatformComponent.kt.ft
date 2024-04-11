@@ -1,0 +1,7 @@
+package ${PACKAGE_NAME}
+
+import org.hyperskill.app.core.injection.ReduxViewModelFactory
+
+interface Platform${SHORT_FEATURE_NAME}Component {
+    val viewModelFactory: ReduxViewModelFactory
+}

@@ -1,0 +1,32 @@
+package ${PACKAGE_NAME}
+
+import org.hyperskill.app.analytic.domain.model.AnalyticEvent
+
+object ${FULL_FEATURE_NAME} {
+    #if (${USE_VIEW_STATE})
+    internal data class State()
+    #else
+    data class State()
+    #end
+
+    internal fun initialState() = State()
+
+    #if (${USE_VIEW_STATE})
+    data class ViewState()
+    #end
+
+    sealed interface Message {
+        object Initialize : Message
+        object ViewedEventMessage : Message
+    }
+
+    internal sealed interface InternalMessage : Message
+
+    sealed interface Action {
+        sealed interface ViewAction : Action
+    }
+
+    internal sealed interface InternalAction : Action {
+        data class LogAnalyticEvent(val event: AnalyticEvent) : InternalAction
+    }
+}

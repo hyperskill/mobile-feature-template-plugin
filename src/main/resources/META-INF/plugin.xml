@@ -1,0 +1,28 @@
+<idea-plugin>
+    <id>org.hyperskill.mobile.arch.templates</id>
+    <name>KMM Feature Template</name>
+    <vendor>Hyperskill</vendor>
+
+    <description><![CDATA[
+    This plugin will help to generate code for a new KMM feature
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <group id="org.hyperskill.mobile.arch" text="Group">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+            <group id="org.hyperskill.mobile.arch.menu"
+                   popup="true"
+                   text="KMM Feature"
+                   description="KMM feature menu">
+                <action id="org.hyperskill.mobile.arch.newfeature.ActionGenerateKMMFeature"
+                        text="Generate KMM Feature"
+                        description="Generate a new KMM feature"
+                        class="org.hyperskill.mobile.arch.newfeature.ActionGenerateKMMFeature"/>
+            </group>
+        </group>
+    </actions>
+</idea-plugin>

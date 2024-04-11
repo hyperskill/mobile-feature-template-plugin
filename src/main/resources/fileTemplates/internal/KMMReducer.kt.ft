@@ -1,0 +1,24 @@
+package ${PACKAGE_NAME}
+
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.Action
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.InternalAction
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.Message
+import ${COMMON_MAIN_PRESENTATION_PACKAGE_NAME}.${FULL_FEATURE_NAME}.State
+import ru.nobird.app.presentation.redux.reducer.StateReducer
+
+#set($typealias_name = ${SHORT_FEATURE_NAME} + "ReducerResult")
+private typealias ${typealias_name} = Pair<State, Set<Action>>
+
+internal class ${SHORT_FEATURE_NAME}Reducer : StateReducer<State, Message, Action> {
+    override fun reduce(state: State, message: Message): ${typealias_name} =
+        when (message) {
+            Message.Initialize -> TODO("Not implemented")
+            Message.ViewedEventMessage -> {
+                state to setOf(
+                    InternalAction.LogAnalyticEvent(
+                        TODO("Add analytics event")
+                    )
+                )
+            }
+        }
+}
