@@ -1,10 +1,12 @@
+fun properties(key: String) = providers.gradleProperty(key)
+
 plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.intellijPlugin)
 }
 
-group = "org.hyperskill.mobile.arch"
-version = "1.0"
+group = properties("pluginGroup").get()
+version = properties("pluginVersion").get()
 
 repositories {
     mavenCentral()
@@ -20,10 +22,18 @@ kotlin {
 }
 
 intellij {
-    version.set("2023.3.1")
+    pluginName = properties("pluginName")
+    version = properties("platformVersion")
+    type = properties("platformType")
 }
 
 tasks {
+    patchPluginXml {
+        version = properties("pluginVersion")
+        sinceBuild = properties("pluginSinceBuild")
+        untilBuild = properties("pluginUntilBuild")
+    }
+
     // Configure UI tests plugin
     // Read more: https://github.com/JetBrains/intellij-ui-test-robot
     runIdeForUiTests {
