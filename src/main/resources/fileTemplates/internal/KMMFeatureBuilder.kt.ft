@@ -2,6 +2,7 @@ package ${PACKAGE_NAME}
 
 import co.touchlab.kermit.Logger
 import org.hyperskill.app.analytic.domain.interactor.AnalyticInteractor
+import org.hyperskill.app.analytic.presentation.wrapWithAnalyticLogger
 import org.hyperskill.app.core.domain.BuildVariant
 import org.hyperskill.app.core.presentation.ActionDispatcherOptions
 #if (${USE_VIEW_STATE})
@@ -39,8 +40,7 @@ internal object ${FULL_FEATURE_NAME}Builder {
                 .wrapWithLogger(buildVariant, logger, LOG_TAG)
 
         val ${camel_case_feature}ActionDispatcher = ${SHORT_FEATURE_NAME}ActionDispatcher(
-            ActionDispatcherOptions(),
-            analyticInteractor
+            ActionDispatcherOptions()
         )
 
         #if (${USE_VIEW_STATE})
@@ -51,11 +51,12 @@ internal object ${FULL_FEATURE_NAME}Builder {
             initialState = ${FULL_FEATURE_NAME}.initialState(),
             reducer = ${camel_case_feature}Reducer
         )
-        #if (${USE_VIEW_STATE})
             .wrapWithActionDispatcher(${camel_case_feature}ActionDispatcher)
+            .wrapWithAnalyticLogger(analyticInteractor) {
+                (it as? TestFeature.InternalAction.LogAnalyticEvent)?.event
+            }
+            #if (${USE_VIEW_STATE})
             .transformState(viewStateMapper::map)
-        #else
-        .wrapWithActionDispatcher(${camel_case_feature}ActionDispatcher)
-        #end
+            #end
     }
 }

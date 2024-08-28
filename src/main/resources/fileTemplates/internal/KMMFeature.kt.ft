@@ -16,8 +16,8 @@ object ${FULL_FEATURE_NAME} {
     #end
 
     sealed interface Message {
-        object Initialize : Message
-        object ViewedEventMessage : Message
+        data object Initialize : Message
+        data object ViewedEventMessage : Message
     }
 
     internal sealed interface InternalMessage : Message
